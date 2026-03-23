@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Place Details</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body class="details-body">
+  <div class="details-card">
+    {% if place %}
+      <img src="{{ place.image_url }}" alt="{{ place.name }}" />
+      <h1>{{ place.name }}</h1>
+      <p><strong>Category:</strong> {{ place.category }}</p>
+      <p><strong>Address:</strong> {{ place.address }}</p>
+      <p><strong>Contact:</strong> {{ place.contact }}</p>
+      <p><strong>Rating:</strong> {{ place.rating }}</p>
+      <p><strong>Opening Hours:</strong> {{ place.opening_hours }}</p>
+      <p>{{ place.description }}</p>
+    {% else %}
+      <h1>Place not found</h1>
+    {% endif %}
+    <a href="/">← Back to map</a>
+  </div>
+</body>
+</html>
