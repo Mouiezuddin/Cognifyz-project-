@@ -16,8 +16,10 @@ let userMarker;
 let placesLayer;
 let routeLine;
 let activeCategory = "all";
-let watchId = null;
-let lastLiveRefreshAt = 0;
+const trackingState = {
+  watchId: null,
+  lastLiveRefreshAt: 0,
+};
 
 function createMap() {
   map = L.map("map", { zoomControl: true }).setView(userLocation, 13);
@@ -195,9 +197,9 @@ function toggleRealtimeTracking() {
     return;
   }
 
-  if (watchId !== null) {
-    navigator.geolocation.clearWatch(watchId);
-    watchId = null;
+  if (trackingState.watchId !== null) {
+    navigator.geolocation.clearWatch(trackingState.watchId);
+    trackingState.watchId = null;
     statusEl.textContent = "Tracking: Off";
     toggleBtn.textContent = "Start Live Tracking";
     return;
@@ -206,15 +208,15 @@ function toggleRealtimeTracking() {
   statusEl.textContent = "Tracking: Starting...";
   toggleBtn.textContent = "Stop Live Tracking";
 
-  watchId = navigator.geolocation.watchPosition(
+  trackingState.watchId = navigator.geolocation.watchPosition(
     (position) => {
       userLocation = [position.coords.latitude, position.coords.longitude];
       userMarker.setLatLng(userLocation);
       map.panTo(userLocation, { animate: true, duration: 0.6 });
 
       const now = Date.now();
-      if (now - lastLiveRefreshAt > 3000) {
-        lastLiveRefreshAt = now;
+      if (now - trackingState.lastLiveRefreshAt > 3000) {
+        trackingState.lastLiveRefreshAt = now;
         loadPlaces();
       }
       statusEl.textContent = `Tracking: On (${userLocation[0].toFixed(5)}, ${userLocation[1].toFixed(5)})`;
@@ -222,7 +224,7 @@ function toggleRealtimeTracking() {
     () => {
       statusEl.textContent = "Tracking: Error (permission denied or unavailable)";
       toggleBtn.textContent = "Start Live Tracking";
-      watchId = null;
+      trackingState.watchId = null;
     },
     {
       enableHighAccuracy: true,
@@ -241,7 +243,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 });
 
 window.addEventListener("beforeunload", () => {
-  if (watchId !== null && navigator.geolocation) {
-    navigator.geolocation.clearWatch(watchId);
+  if (trackingState.watchId !== null && navigator.geolocation) {
+    navigator.geolocation.clearWatch(trackingState.watchId);
   }
 });
