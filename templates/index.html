@@ -4,58 +4,68 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Local Business Finder</title>
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
 </head>
 <body>
-    <header class="topbar">
-        <div>
-            <h1>🚀 Local Business Finder</h1>
-            <p>Find local services with live map, details, and route guidance.</p>
-        </div>
-        <div class="actions">
-            <button id="detect-location-btn">Use My Location</button>
-            <button id="realtime-location-btn">Start Live Tracking</button>
-            <input id="manual-location" type="text" placeholder="lat,lng (e.g. 28.6139,77.2090)" />
-            <button id="apply-manual-location-btn">Apply</button>
-        </div>
-    </header>
 
-    <main class="layout">
-        <aside class="sidebar">
-            <h2>Filters</h2>
-            <div id="category-filters" class="chip-group"></div>
-            <section class="panel">
-                <h3>Distance Analysis</h3>
-                <p id="stats">Loading...</p>
-            </section>
-            <section class="panel">
-                <h3>Traffic / Crowd (Simulated)</h3>
-                <p id="traffic-indicator">Traffic: -- | Crowd: --</p>
-            </section>
-            <section class="panel">
-                <h3>Live Location</h3>
-                <p id="realtime-status">Tracking: Off</p>
-            </section>
-        </aside>
-
-        <section class="map-list-wrap">
-            <div id="map"></div>
-            <div class="list-panel">
-                <h2>Nearby Places</h2>
-                <div id="places-list"></div>
-            </div>
-        </section>
-    </main>
-
-    <div id="place-modal" class="modal hidden">
-        <div class="modal-content">
-            <button class="close-modal" id="close-modal">×</button>
-            <div id="modal-body"></div>
-        </div>
+<header class="topbar">
+    <div>
+        <h1>🚀 Local Business Finder</h1>
+        <p>Find local services with live map, details, and route guidance.</p>
     </div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <div class="actions">
+        <button id="detect-location-btn">Use My Location</button>
+        <button id="realtime-location-btn">Start Live Tracking</button>
+
+        <input id="manual-location" type="text" placeholder="lat,lng (e.g. 28.6139,77.2090)" />
+        <button id="apply-manual-location-btn">Apply</button>
+    </div>
+</header>
+
+<main class="layout">
+    <aside class="sidebar">
+        <h2>Filters</h2>
+
+        <div id="category-filters" class="chip-group"></div>
+
+        <section class="panel">
+            <h3>Distance Analysis</h3>
+            <p id="stats">Loading...</p>
+        </section>
+
+        <section class="panel">
+            <h3>Traffic / Crowd (Simulated)</h3>
+            <p id="traffic-indicator">Traffic: -- | Crowd: --</p>
+        </section>
+
+        <section class="panel">
+            <h3>Live Location</h3>
+            <p id="realtime-status">Tracking: Off</p>
+        </section>
+    </aside>
+
+    <section class="map-list-wrap">
+        <div id="map"></div>
+
+        <div class="list-panel">
+            <h2>Nearby Places</h2>
+            <div id="places-list"></div>
+        </div>
+    </section>
+</main>
+
+<div id="place-modal" class="modal hidden">
+    <div class="modal-content">
+        <button class="close-modal" id="close-modal">×</button>
+        <div id="modal-body"></div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
 </body>
 </html>
